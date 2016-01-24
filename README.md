@@ -1,2 +1,2 @@
 # idroc
-idrco - Inventory Management System
+idroc - Inventory Management System
