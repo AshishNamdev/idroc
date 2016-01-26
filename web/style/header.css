@@ -12,12 +12,16 @@ ul{
     margin-top: -33px;
     margin-left: 70.8%;
 }
+
+li:hover
+{
+    background-color: white;
+}
 .a2_1
 {
     position:relative;
     display: block;
     text-decoration: none;
-    background-color: white;
     color: orangered;
     border:2px red ridge;
     text-align: center;
@@ -47,7 +51,7 @@ ul{
 {
     margin-top: -20;
     margin-left: 20px;
-    font-family:Forte;
+    font-family:  Forte;
     color: #6699FF;
     font-size: x-large;
     font-weight: 900;
