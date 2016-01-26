@@ -31,13 +31,12 @@ public class DbCom
     {
         Connection connection = null;
         String conURL = Dbd.DBURL+Dbd.DATABASE+"?user="+Dbd.DBUSER+"&password="+Dbd.DBPWD;
+        DbCom.loadDbDriver();
         connection = DriverManager.getConnection(conURL);
         //connection = DriverManager.getConnection(Dbd.DBURL, Dbd.DBUSER, Dbd.DBPWD);
         System.out.println(conURL);
         if(connection==null)
-        {
             throw new NullPointerException();
-        }
         return connection;
     }
 }
