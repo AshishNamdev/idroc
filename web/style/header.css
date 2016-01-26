@@ -1,0 +1,159 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 26, 2016, 7:48:29 PM
+    Author     : anamdev
+*/
+ul{
+    list-style: none;
+    margin-top: -33px;
+    margin-left: 70.8%;
+}
+.a2_1
+{
+    position:relative;
+    display: block;
+    text-decoration: none;
+    background-color: white;
+    color: orangered;
+    border:2px red ridge;
+    text-align: center;
+    font-family:  fantasy ;
+    font-size: small;
+    font-weight: bolder;
+    padding: 13px;
+    border-bottom-style: none;
+    border-top-style: none;
+    border-left-style: none;
+}
+.l
+{
+    display:table-cell;
+    width: 120px;
+}
+
+#sub1
+{
+    margin-top: 2px;
+    margin-left: 5px;
+    font-size: small;
+    font-family: Tempus Sans ITC;
+    color: tomato;
+}
+#iLogo
+{
+    margin-top: -20;
+    margin-left: 20px;
+    font-family:Forte;
+    color: #6699FF;
+    font-size: x-large;
+    font-weight: 900;
+}
+
+#dv1
+{
+    position: absolute;
+    z-index: +1;
+    background-color: #ffed7a;
+    height: 7%;
+    width: 100%;
+    border-bottom-style: ridge;
+    border-bottom-width: thin;
+    border-bottom-color: royalblue;
+    margin-top: -10px;
+    margin-left: -8px;
+}
+
+#span3
+{
+    margin-left: 30px;
+    color: red;
+    font-weight: bold;
+    font-size: small;
+    text-decoration: blink;
+}
+
+#ngoMessage
+{
+    margin-left: 30px;
+    color: red;
+    font-weight: bold;
+    font-size: small;
+    text-decoration: blink;
+}
+
+.login
+{
+    position: absolute;
+    display:none;
+    top: 200px;
+    z-index: +1;
+    left: 500px;
+    width: 320px;
+    height: 320px;
+    background-color:azure;
+    border: 4px turquoise solid;
+    border-radius:10px;
+}
+.Close
+{
+    margin-left: 303px;
+}
+.Close:hover
+{
+    cursor: pointer;
+}
+.text
+{
+    margin-left: 10px;
+    color: tomato;
+    font-size: larger;
+    font-weight: bold;    
+}
+.cant
+{
+    margin-left: 60px;
+    color: red;
+}
+.cant:hover
+{
+    border: 1px orange solid;
+    cursor: pointer;
+}
+#disableHeader
+{
+    position:  absolute;
+    top: -1px;
+    background-color: silver;
+    opacity:.2;
+    width: 1378px;
+    height: 58px;
+    z-index: +1;
+    display: none;
+}
+#disableFooter
+{
+    display: none;
+    position: fixed;
+    top: 613px;
+    background-color: silver;
+    opacity:.2;
+    width: 1378px;
+    height: 38px;
+    z-index: +1;
+}
+
+#disable
+{
+    position: absolute;
+    background-color: silver;
+    display: none;
+    opacity:.2;
+    width:1378px;
+    height: 605px;
+    z-index: 0;
+    border: 1px thistle solid;
+}
