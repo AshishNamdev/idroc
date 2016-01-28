@@ -138,15 +138,69 @@ public class User
             
             if(prepSt.executeUpdate() > 0)
                 ret = true;
+            connection.commit();
         }
         catch (SQLException ex)
         {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            this.releaseResources(connection, prepSt);
+        }
+        return ret;
+    }
+
+    public boolean checkUser()
+    {
+        boolean ret = false;
+        String sql = "Select * from idroc.user where email = ?";
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+        try
+        {
+            connection = DbCom.createConnection();
+            prepSt = connection.prepareStatement(sql);
+            prepSt.setString(1,this.getEmail());
+
+            if(prepSt.executeQuery().next())
+                ret = true;
+
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            this.releaseResources(connection, prepSt);
         }
         return ret;
     }
     
     public void deleteUser()
     {
+    }
+
+    public void releaseResources(Connection connection , PreparedStatement prepSt)
+    {
+        boolean exFlag = false;
+
+        if (prepSt != null)
+            exFlag = true;
+        if (connection != null)
+            exFlag = true;
+        if (exFlag)
+        {
+            try
+            {
+                prepSt.close();
+                connection.close();
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
