@@ -8,6 +8,8 @@ package dbcom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author anamdev
@@ -37,5 +39,17 @@ public class DbCom
         if(connection==null)
             throw new NullPointerException();
         return connection;
+    }
+
+    public static java.sql.Date toSQLDate(String date) throws ParseException
+    {
+        java.sql.Date sqlDate;
+        java.util.Date utilDate;
+        long time;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        utilDate = sdf.parse(date);
+        time = utilDate.getTime();
+        sqlDate = new java.sql.Date(time);
+        return sqlDate;
     }
 }

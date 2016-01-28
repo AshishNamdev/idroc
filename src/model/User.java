@@ -5,6 +5,13 @@
  */
 package model;
 
+import dbcom.DbCom;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author anamdev
@@ -15,21 +22,30 @@ public class User
     private String email;
     private String password;
     private String userName;
+    private String fName;
+    private String mName;
+    private String lName;
 
     public User()
     {
         this.uid = null;
         this.email = null;
         this.password = null;
+        this.fName = null;
+        this.mName = null;
+        this.lName = null;
         this.userName = null;
     }
 
-    public User(String uid, String email, String password, String userName)
+    public User(String uid, String email, String password, String fName, String mName , String lName)
     {
         this.uid = uid;
         this.email = email;
         this.password = password;
-        this.userName = userName;
+        this.fName = fName;
+        this.mName = mName;
+        this.lName = lName;
+        this.userName = fName + mName + lName;
     }
 
     public String getUid()
@@ -71,11 +87,120 @@ public class User
         this.userName = userName;
     }
 
-    public void addUSer()
+    public void setfName(String fName)
     {
+        this.fName = fName;
+    }
+
+    public void setmName(String mName)
+    {
+        this.mName = mName;
+    }
+
+    public void setlName(String lName)
+    {
+        this.lName = lName;
+    }
+    
+    public String getfName()
+    {
+        return fName;
+    }
+
+    public String getmName()
+    {
+        return mName;
+    }
+
+    public String getlName()
+    {
+        return lName;
+    }
+    
+    public boolean addUSer()
+    {
+        boolean ret = false;
+        String query = null;
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+        try
+        {
+            connection = DbCom.createConnection();
+            query = "insert into user(uid, email , password, f_name, m_name, l_name)"
+                    + " values(?,?,?,?,?,?)";
+            prepSt = connection.prepareStatement(query);
+            prepSt.setString(1, this.getUid());
+            prepSt.setString(2, this.getEmail());
+            prepSt.setString(3, this.getPassword());
+            prepSt.setString(4, this.getfName());
+            prepSt.setString(5, this.getmName());
+            prepSt.setString(6, this.getlName());
+            
+            if(prepSt.executeUpdate() > 0)
+                ret = true;
+            connection.commit();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            this.releaseResources(connection, prepSt);
+        }
+        return ret;
+    }
+
+    public boolean checkUser()
+    {
+        boolean ret = false;
+        String sql = "Select * from idroc.user where email = ?";
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+        try
+        {
+            connection = DbCom.createConnection();
+            prepSt = connection.prepareStatement(sql);
+            prepSt.setString(1,this.getEmail());
+
+            if(prepSt.executeQuery().next())
+                ret = true;
+
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            this.releaseResources(connection, prepSt);
+        }
+        return ret;
     }
     
     public void deleteUser()
     {
+    }
+
+    public void releaseResources(Connection connection , PreparedStatement prepSt)
+    {
+        boolean exFlag = false;
+
+        if (prepSt != null)
+            exFlag = true;
+        if (connection != null)
+            exFlag = true;
+        if (exFlag)
+        {
+            try
+            {
+                prepSt.close();
+                connection.close();
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
