@@ -8,6 +8,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InventoryServ</servlet-name>
+        <servlet-class>controller.InventoryServ</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/Signup</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InventoryServ</servlet-name>
+        <url-pattern>/InventoryServ</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,14 @@
  */
 package model;
 
+import comms.Query;
+import dbcom.DbCom;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author anamdev
@@ -83,5 +91,86 @@ public class Inventory
     public void setInvLocation(String invLocation)
     {
         this.invLocation = invLocation;
+    }
+
+    public boolean isAlreadyAdded()
+    {
+        boolean ret = false;
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+
+        try
+        {
+            connection = DbCom.createConnection();
+            prepSt = connection.prepareStatement(Query.INVENTORYCHECK);
+            prepSt.setString(1,this.getInvId());
+
+            if(prepSt.executeQuery().next())
+                    ret = true;
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            DbCom.releaseResources(connection, prepSt, null);
+        }
+        return ret;
+    }
+
+    public boolean addInventory()
+    {
+        boolean ret = false;
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+        try
+        {
+            connection = DbCom.createConnection();
+            prepSt = connection.prepareStatement(Query.INVENTORYINSERT);
+            prepSt.setString(1, this.getInvId());
+            prepSt.setString(2, this.getInvName());
+            prepSt.setString(3, this.getInvDetail());
+            prepSt.setString(4, this.getInvType());
+            prepSt.setString(5, this.getInvLocation());
+
+            if(prepSt.executeUpdate() > 0)
+                ret = true;
+            //connection.commit();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            DbCom.releaseResources(connection, prepSt, null);
+        }
+        return ret;
+    }
+
+    public boolean deleteInventory()
+    {
+        boolean ret = false;
+        Connection connection = null;
+        PreparedStatement prepSt = null;
+
+        try
+        {
+            connection = DbCom.createConnection();
+            prepSt = connection.prepareStatement(Query.INVENTORYDELETE);
+            prepSt.setString(1, this.getInvId());
+            if(prepSt.executeUpdate() > 0)
+                    ret = true;
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            DbCom.releaseResources(connection, prepSt, null);
+        }
+        return ret;
     }
 }
