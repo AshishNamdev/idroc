@@ -7,9 +7,14 @@ package dbcom;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.User;
 /**
  *
  * @author anamdev
@@ -51,5 +56,23 @@ public class DbCom
         time = utilDate.getTime();
         sqlDate = new java.sql.Date(time);
         return sqlDate;
+    }
+
+
+    public static void releaseResources(Connection connection , PreparedStatement prepSt , ResultSet rset)
+    {
+        try
+        {
+            if (prepSt != null)
+                prepSt.close();
+            if (connection != null)
+                connection.close();
+            if  (rset != null)
+                rset.close();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
