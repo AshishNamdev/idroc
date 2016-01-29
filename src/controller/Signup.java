@@ -54,11 +54,11 @@ public class Signup extends HttpServlet
     
     public void initializParams(HttpServletRequest request)
     {
-        String email = request.getParameter(CommStrings.emailParam);
-        String password = request.getParameter(CommStrings.passwordParam);
-        String fName = request.getParameter(CommStrings.fNameParam);
-        String mName = request.getParameter(CommStrings.mNameParam);
-        String lName = request.getParameter(CommStrings.lNameParam);
+        String email = request.getParameter(CommStrings.EMAIL);
+        String password = request.getParameter(CommStrings.PASSWORD);
+        String fName = request.getParameter(CommStrings.FNAME);
+        String mName = request.getParameter(CommStrings.MNAME);
+        String lName = request.getParameter(CommStrings.LNAME);
         
         user = new User();
         
@@ -72,10 +72,10 @@ public class Signup extends HttpServlet
     public boolean isRegisteredUser(HttpServletRequest request)
     {
         boolean ret = false;
-        String email = request.getParameter(CommStrings.emailParam);
+        String email = request.getParameter(CommStrings.EMAIL);
         User usr = new User();
         user.setEmail(email);
-        if (usr.checkUser())
+        if (usr.loginUser(false))
             ret = true;
         return ret;
     }

@@ -12,11 +12,12 @@ package comms;
  */
 public class CommStrings
 {
-    public static final String emailParam = "email";
-    public static final String passwordParam = "password";
-    public static final String fNameParam = "fName";
-    public static final String mNameParam = "mName";
-    public static final String lNameParam = "lName";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String FNAME = "f_name";
+    public static final String MNAME = "m_name";
+    public static final String LNAME = "l_name";
+    public static final String UID = "uid";
     
     public static String homePage = "home.jsp";
 }
