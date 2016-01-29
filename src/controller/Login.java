@@ -46,7 +46,7 @@ public class Login extends HttpServlet
         else
         {
             out.println("<span id = 'lResponse'>User Id password do not match </span>");
-            request.getRequestDispatcher(CommStrings.HMEPAGE).include(request, response);
+            request.getRequestDispatcher(CommStrings.HOMEPAGE).include(request, response);
         }
         out.close();
     }

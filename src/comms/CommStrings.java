@@ -19,6 +19,14 @@ public class CommStrings
     public static final String LNAME = "l_name";
     public static final String UID = "uid";
     
-    public static String HMEPAGE = "home.jsp";
-    public static String DASHBOARD = "dashbaord.jsp";
+    public static final String INVID = "inv_id";
+    public static final String INVNAME = "name";
+    public static final String INVDETAIL = "details";
+    public static final String INVTYPE = "type";
+    public static final String INVLOCATION = "location";
+
+    public static final String HOMEPAGE = "home.jsp";
+    public static final String DASHBOARD = "dashbaord.jsp";
+    public static final String INVENTORYPAGE = "inventory.jsp";
+    public static final String INVENTORDETAIL = "invdetail.jsp";
 }
