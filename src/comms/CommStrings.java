@@ -19,5 +19,6 @@ public class CommStrings
     public static final String LNAME = "l_name";
     public static final String UID = "uid";
     
-    public static String homePage = "home.jsp";
+    public static String HMEPAGE = "home.jsp";
+    public static String DASHBOARD = "dashbaord.jsp";
 }
