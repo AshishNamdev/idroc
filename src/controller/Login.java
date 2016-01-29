@@ -8,21 +8,20 @@ package controller;
 import comms.CommStrings;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.User;
 
 /**
  *
  * @author anamdev
  */
-public class Signup extends HttpServlet
+public class Login extends HttpServlet
 {
-
-    private User user = null;
+    User user;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,49 +35,26 @@ public class Signup extends HttpServlet
             throws ServletException, IOException
     {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher dispatcher = request.getRequestDispatcher(CommStrings.HMEPAGE);
         PrintWriter out = response.getWriter();
-        if (this.isRegisteredUser(request))
+        HttpSession session = null;
+        if (user.loginUser(true))
         {
-           out.println("<span id='cResponse'>This user is already registered</span>");
-           dispatcher.include(request, response);
+            session = request.getSession();
+            session.setAttribute("user", user);
+            request.getRequestDispatcher(CommStrings.DASHBOARD).forward(request, response);
         }
-        this.initializParams(request);
-        if (user.addUSer())
+        else
         {
-           out.println("<span id='sResponse'>Succefully Registered</span>");
-           out.println("<span id = 'lDirection'><a href = '"+CommStrings.HMEPAGE+"'> Click here </a> to Login</span>");
-           dispatcher.include(request, response);
+            out.println("<span id = 'lResponse'>User Id password do not match </span>");
+            request.getRequestDispatcher(CommStrings.HMEPAGE).include(request, response);
         }
         out.close();
     }
-    
-    public void initializParams(HttpServletRequest request)
+    public void initParams(HttpServletRequest request , HttpServletResponse response)
     {
-        String email = request.getParameter(CommStrings.EMAIL);
-        String password = request.getParameter(CommStrings.PASSWORD);
-        String fName = request.getParameter(CommStrings.FNAME);
-        String mName = request.getParameter(CommStrings.MNAME);
-        String lName = request.getParameter(CommStrings.LNAME);
-        
         user = new User();
-        
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setfName(fName);
-        user.setmName(mName);
-        user.setlName(lName);
-    }
-    
-    public boolean isRegisteredUser(HttpServletRequest request)
-    {
-        boolean ret = false;
-        String email = request.getParameter(CommStrings.EMAIL);
-        User usr = new User();
-        user.setEmail(email);
-        if (usr.loginUser(false))
-            ret = true;
-        return ret;
+        user.setEmail(request.getParameter(CommStrings.EMAIL));
+        user.setPassword(request.getParameter(CommStrings.PASSWORD));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

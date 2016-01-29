@@ -5,9 +5,11 @@
  */
 package model;
 
+import comms.CommStrings;
 import dbcom.DbCom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,26 +148,52 @@ public class User
         }
         finally
         {
-            this.releaseResources(connection, prepSt);
+            DbCom.releaseResources(connection, prepSt, null);
         }
         return ret;
     }
 
-    public boolean checkUser()
+    public boolean loginUser(boolean isLogin)
     {
         boolean ret = false;
-        String sql = "Select * from idroc.user where email = ?";
         Connection connection = null;
         PreparedStatement prepSt = null;
+        ResultSet rst = null;
+        String sql = null;
+        if (isLogin)
+            sql = "Select uid , f_name ,m_name , l_name from idroc.user where email = ? and password = ? ";
+        else
+            sql = "Select * from idroc.user where email = ? ";
+
         try
         {
             connection = DbCom.createConnection();
             prepSt = connection.prepareStatement(sql);
             prepSt.setString(1,this.getEmail());
 
-            if(prepSt.executeQuery().next())
-                ret = true;
-
+            if (isLogin)
+            {
+                prepSt.setString(2,this.getPassword());
+                rst = prepSt.executeQuery();
+                if(rst.next())
+                {
+                    this.setUid(rst.getString(CommStrings.UID));
+                    this.setfName(rst.getString(CommStrings.FNAME));
+                    this.setlName(rst.getString(CommStrings.LNAME));
+                    
+                    String mTemp = rst.getString(CommStrings.MNAME);
+                    this.setmName( (mTemp == null ) ? " " : mTemp);
+                    
+                    this.setUserName(this.getfName()+" "+this.getmName()+" "+this.getlName());
+                    ret = true;
+                }
+            }
+            else
+            {
+                rst = prepSt.executeQuery();
+                if(rst.next())
+                    ret = true;
+            }
         }
         catch (SQLException ex)
         {
@@ -173,34 +201,8 @@ public class User
         }
         finally
         {
-            this.releaseResources(connection, prepSt);
+            DbCom.releaseResources(connection, prepSt, rst);
         }
         return ret;
-    }
-    
-    public void deleteUser()
-    {
-    }
-
-    public void releaseResources(Connection connection , PreparedStatement prepSt)
-    {
-        boolean exFlag = false;
-
-        if (prepSt != null)
-            exFlag = true;
-        if (connection != null)
-            exFlag = true;
-        if (exFlag)
-        {
-            try
-            {
-                prepSt.close();
-                connection.close();
-            }
-            catch (SQLException ex)
-            {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 }
