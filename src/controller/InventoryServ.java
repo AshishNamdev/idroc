@@ -8,20 +8,20 @@ package controller;
 import comms.CommStrings;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.User;
+import model.Inventory;
 
 /**
  *
  * @author anamdev
  */
-public class Login extends HttpServlet
+public class InventoryServ extends HttpServlet
 {
-    User user;
+    Inventory inventory;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,25 +36,32 @@ public class Login extends HttpServlet
     {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        HttpSession session = null;
-        if (user.loginUser(true))
+        inventory = new Inventory();
+        inventory.setInvId(request.getParameter(CommStrings.INVID));
+        RequestDispatcher dispatcher = request.getRequestDispatcher(CommStrings.INVENTORYPAGE);
+        
+        if(inventory.isAlreadyAdded())
         {
-            session = request.getSession();
-            session.setAttribute("user", user);
-            request.getRequestDispatcher(CommStrings.DASHBOARD).forward(request, response);
+            out.println("<span id='iResponse'> Inventory is already present , Please check your inventory id</span>");
+            dispatcher.include(request, response);
         }
         else
         {
-            out.println("<span id = 'lResponse'>User Id password do not match </span>");
-            request.getRequestDispatcher(CommStrings.HOMEPAGE).include(request, response);
+            this.initializParams(request);
+            if (inventory.addInventory())
+            {
+                out.println("<span id='sResponse'>Succefully added <a href = '"+CommStrings.HOMEPAGE+"'> "+inventory.getInvId()+" in system</a></span>");
+                dispatcher.include(request, response);
+            }
         }
-        out.close();
     }
-    public void initParams(HttpServletRequest request , HttpServletResponse response)
+
+    public void initializParams(HttpServletRequest request)
     {
-        user = new User();
-        user.setEmail(request.getParameter(CommStrings.EMAIL));
-        user.setPassword(request.getParameter(CommStrings.PASSWORD));
+        inventory.setInvName(request.getParameter(CommStrings.INVNAME));
+        inventory.setInvDetail(request.getParameter(CommStrings.INVDETAIL));
+        inventory.setInvType(request.getParameter(CommStrings.INVTYPE));
+        inventory.setInvLocation(request.getParameter(CommStrings.INVLOCATION));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

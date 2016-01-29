@@ -36,49 +36,38 @@ public class Signup extends HttpServlet
             throws ServletException, IOException
     {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher dispatcher = request.getRequestDispatcher(CommStrings.HMEPAGE);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(CommStrings.HOMEPAGE);
         PrintWriter out = response.getWriter();
-        if (this.isRegisteredUser(request))
+        user = new User();
+
+        user.setEmail(request.getParameter(CommStrings.EMAIL));
+
+        // check if User already registered
+        if (user.loginUser(false))
         {
            out.println("<span id='cResponse'>This user is already registered</span>");
            dispatcher.include(request, response);
         }
-        this.initializParams(request);
-        if (user.addUSer())
+        else
         {
-           out.println("<span id='sResponse'>Succefully Registered</span>");
-           out.println("<span id = 'lDirection'><a href = '"+CommStrings.HMEPAGE+"'> Click here </a> to Login</span>");
-           dispatcher.include(request, response);
+            this.initializParams(request);
+            if (user.addUSer())
+            {
+                out.println("<span id='sResponse'>Succefully Registered</span>");
+                out.println("<span id = 'lDirection'><a href = '"+CommStrings.HOMEPAGE+"'> Click here </a> to Login</span>");
+                dispatcher.include(request, response);
+            }
         }
         out.close();
     }
     
     public void initializParams(HttpServletRequest request)
     {
-        String email = request.getParameter(CommStrings.EMAIL);
-        String password = request.getParameter(CommStrings.PASSWORD);
-        String fName = request.getParameter(CommStrings.FNAME);
-        String mName = request.getParameter(CommStrings.MNAME);
-        String lName = request.getParameter(CommStrings.LNAME);
-        
-        user = new User();
-        
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setfName(fName);
-        user.setmName(mName);
-        user.setlName(lName);
-    }
-    
-    public boolean isRegisteredUser(HttpServletRequest request)
-    {
-        boolean ret = false;
-        String email = request.getParameter(CommStrings.EMAIL);
-        User usr = new User();
-        user.setEmail(email);
-        if (usr.loginUser(false))
-            ret = true;
-        return ret;
+        user.setEmail(request.getParameter(CommStrings.EMAIL));
+        user.setPassword(request.getParameter(CommStrings.PASSWORD));
+        user.setfName(request.getParameter(CommStrings.FNAME));
+        user.setmName(request.getParameter(CommStrings.FNAME));
+        user.setlName(request.getParameter(CommStrings.LNAME));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

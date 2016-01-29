@@ -6,6 +6,7 @@
 package model;
 
 import comms.CommStrings;
+import comms.Query;
 import dbcom.DbCom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -122,15 +123,12 @@ public class User
     public boolean addUSer()
     {
         boolean ret = false;
-        String query = null;
         Connection connection = null;
         PreparedStatement prepSt = null;
         try
         {
             connection = DbCom.createConnection();
-            query = "insert into user(uid, email , password, f_name, m_name, l_name)"
-                    + " values(?,?,?,?,?,?)";
-            prepSt = connection.prepareStatement(query);
+            prepSt = connection.prepareStatement(Query.USERINSERT);
             prepSt.setString(1, this.getUid());
             prepSt.setString(2, this.getEmail());
             prepSt.setString(3, this.getPassword());
@@ -140,7 +138,7 @@ public class User
             
             if(prepSt.executeUpdate() > 0)
                 ret = true;
-            connection.commit();
+            //connection.commit();
         }
         catch (SQLException ex)
         {
@@ -161,9 +159,9 @@ public class User
         ResultSet rst = null;
         String sql = null;
         if (isLogin)
-            sql = "Select uid , f_name ,m_name , l_name from idroc.user where email = ? and password = ? ";
+            sql = Query.USERSELECT;
         else
-            sql = "Select * from idroc.user where email = ? ";
+            sql = Query.USERCHECK;
 
         try
         {
