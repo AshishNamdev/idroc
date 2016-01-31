@@ -21,12 +21,12 @@ public class CommStrings
     
     public static final String INVID = "inv_id";
     public static final String INVNAME = "name";
-    public static final String INVDETAIL = "details";
+    public static final String INVDETAIL = "detail";
     public static final String INVTYPE = "type";
     public static final String INVLOCATION = "location";
 
     public static final String HOMEPAGE = "home.jsp";
     public static final String DASHBOARD = "dashbaord.jsp";
     public static final String INVENTORYPAGE = "inventory.jsp";
-    public static final String INVENTORDETAIL = "invdetail.jsp";
+    public static final String INVENTORYDETAIL = "invdetail.jsp";
 }
