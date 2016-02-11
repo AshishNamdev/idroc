@@ -5,38 +5,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<link href="style/header.css" rel="stylesheet" type="text/css" > 
-<div id="dv1">
-    <span id="iLogo">idroc</span>
-    <ul>
-        <li class="l"><a id="a2" class="a2_1" href="home.jsp">Home</a></li>
-        <li class="l"><a  id="user" class="a2_1" href="#">User Login</a></li>
-        <li class="l"><a class="a2_1" id="a2" href="">Admin Login</a></li>
-    </ul>
-</div>
+<link href="style/home.css" rel="stylesheet" type="text/css" > 
+<div id="container">
 
-<div class="login" id="UserLogin">
-    <img class="Close" id="UClose" src="images/btn-delete.gif">
-    <br/><br/><span class="text">User are requested to login here !</span><br/>
-    <form action="UserLogin" method="post">
-        <table cellpadding="6" cellspacing="4">
-            <tr>
-                <th>User Name :</th><td><input type="text" id="uid" name="uid" title="Enter your user name"></td>
-            </tr>
-            <tr>
-                <th>Password&nbsp;&nbsp; :</th><td><input type="password" id ="upwd" name="pwd" title="Enter your Password"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td>
-                    <input type="submit" value="Login" onclick="return isValidUserLogin()"/>
-                </td>
-            </tr>
-            <tr>
-               <td align="left"colspan="2"><span id="span3"></span></td>
-            </tr>
-        </table>
-        <br/>
-        <a class="cant">Cant access my account?</a>
-    </form>
-</div>
+  <div class="header"><img src="images/logo.png" alt="IDROC" width="150" height="50" style="float: left"><h2> IDROC Inventory management</h2>
+ 
+  </div>
