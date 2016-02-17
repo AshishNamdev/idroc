@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,11 +37,9 @@
 </ul>
       </div></br></br>
      
-
-<br /></br></br> 
+  
+</br></br></br> 
  <!----left-div ends-----> </div>
-
-
 <div class="divsec" id="login" >
     
     <form ACTION="/index.php" METHOD="POST" name="login">
@@ -77,17 +74,35 @@
            </tr>
    </table>
     </form> </div> 
-
 <!---- Login form ends ----->
-
 <div class="divsec" id="signup" >
-
 <form ACTION="/index.php" METHOD="POST" name="signup">
     <table width="98%" border="0">
 	<tr> <h1>Sign Up</h1></tr>
+        <tr>
+   			<td width="45%" align="right" valign="top">
+       	   <span  style="color:#5094BA"> First name</span></td>
+             <td width="55%" align="left"><input type="text" name="username" id="username" class="inputform" />
+    			
+           </td>
+         </tr>
+        <tr>
+   			<td width="45%" align="right" valign="top">
+       	   <span  style="color:#5094BA"> Middle name</span></td>
+             <td width="55%" align="left"><input type="text" name="username" id="username" class="inputform" />
+    			
+           </td>
+         </tr>
+        <tr>
+   			<td width="45%" align="right" valign="top">
+       	   <span  style="color:#5094BA"> Last name</span></td>
+             <td width="55%" align="left"><input type="text" name="username" id="username" class="inputform" />
+    			
+           </td>
+         </tr>
          <tr>
    			<td width="45%" align="right" valign="top">
-       	   <span  style="color:#5094BA"> Enter Username</span></td>
+       	   <span  style="color:#5094BA"> Enter Email address</span></td>
              <td width="55%" align="left"><input type="text" name="username" id="username" class="inputform" />
     			
            </td>
@@ -99,14 +114,12 @@
     		</td>
            </tr>
            <tr>
-
 		<td align="right" valign="top">
              <span  style="color:#5094BA"> Confirm Password &nbsp; </span></td>
              <td align="left"><input type="text" value="" maxlength="10"  class="inputform"  name="password2" id="pass1">
     		</td>
            </tr>
            <tr>
-
            		<td colspan="2" align="middle">
                     <input name="submit" type="submit"  style="margin-left:20px;"value="login" />
                     <p style="height:18px; color:#900; padding-left:20px;" class="textsmall">
