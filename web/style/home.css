@@ -126,7 +126,8 @@ box-shadow:         1px 1px 8px rgba(50, 50, 50, 0.65);
 	font-size:11px;
 	color: White;
 	line-height: 41px;
-	vertical-align:middle;	       
+	vertical-align:middle;
+      
 }
 
 .footer a:link, .footer a:visited {
@@ -170,10 +171,10 @@ box-shadow:         1px 1px 8px rgba(50, 50, 50, 0.65);
 	
 }
 #login{
-   display: none;
+   
 }
 #signup{
-
+    display: none;
 }
 #adminlogin{
 display: none;

@@ -7,8 +7,9 @@
 var submitFlag = false;
 function validate()
 {
+    //alert(submitFlag);
     if (submitFlag && document.getElementById("email").value !== "Not a valid email address")
-        return true;
+        signup();
     else
     {
         alert("Please Fill All Required Fields Properly !!");
@@ -145,4 +146,27 @@ function isValidEmail(email)
         ret = true;
     }
     return ret;
+}
+function signup()
+{
+    var xmlhttp;
+    //var controller = "http://192.168.1.8:8084/idroc/Sgnup";
+    var controller = "localhost:8084/idroc/Sgnup";
+    
+    //if(validate())
+    //{
+        if (window.XMLHttpRequest)
+            xmlhttp = new XMLHttpRequest();
+        else
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttp.onreadystatechange = function()
+        {
+            if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+                document.getElementById("sResponse").innerHTML = xmlhttp.responseText;
+            else
+                alert(xmlhttp.status);
+        };
+    //}
+    xmlhttp.open("POST",controller,true);
+    xmlhttp.send();
 }

@@ -15,7 +15,7 @@ public class Dbd
     public static final String DBPWD = "idrocadmin";
     public static final String DATABASE = "idroc";
     public static String DBSERVER = "10.138.130.127:3306";
-    //public static String DBSERVER = "localhost";
+    //public static String DBSERVER = " 192.168.1.8";
     public static final String DBURL = "jdbc:mysql://"+DBSERVER+"/";
     public static final String DBDRIVER = "com.mysql.jdbc.Driver";
 }
