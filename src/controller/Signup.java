@@ -6,6 +6,7 @@
 package controller;
 
 import comms.CommStrings;
+import comms.GenerateUID;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -39,13 +40,13 @@ public class Signup extends HttpServlet
         RequestDispatcher dispatcher = request.getRequestDispatcher(CommStrings.HOMEPAGE);
         PrintWriter out = response.getWriter();
         user = new User();
-
+        System.out.println("in Singup.java");
         user.setEmail(request.getParameter(CommStrings.EMAIL));
 
         // check if User already registered
         if (user.loginUser(false))
         {
-           out.println("<span id='cResponse'>This user is already registered</span>");
+           out.println("<span id='sResponse'>This user is already registered</span>");
            dispatcher.include(request, response);
         }
         else
@@ -53,8 +54,8 @@ public class Signup extends HttpServlet
             this.initializParams(request);
             if (user.addUSer())
             {
-                out.println("<span id='sResponse'>Succefully Registered</span>");
-                out.println("<span id = 'lDirection'><a href = '"+CommStrings.HOMEPAGE+"'> Click here </a> to Login</span>");
+                out.println("<span id='sResponse'>Succefully Registered");
+                out.println("<a href = '"+CommStrings.HOMEPAGE+"'> Click here </a> to Login</span>");
                 dispatcher.include(request, response);
             }
         }
@@ -63,7 +64,9 @@ public class Signup extends HttpServlet
     
     public void initializParams(HttpServletRequest request)
     {
-        user.setEmail(request.getParameter(CommStrings.EMAIL));
+        String email = request.getParameter(CommStrings.EMAIL);
+        user.setUid(GenerateUID.UID(email));
+        user.setEmail(email);
         user.setPassword(request.getParameter(CommStrings.PASSWORD));
         user.setfName(request.getParameter(CommStrings.FNAME));
         user.setmName(request.getParameter(CommStrings.FNAME));
